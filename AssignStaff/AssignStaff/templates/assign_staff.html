@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ASSIGN STAFF TO ISSUES</title>
+</head>
+<body>
+    <h1>ASSIGN STAFF TO ISSUES</h1>
+
+    <h2>Issues</h2>
+    <ul>
+        {% for issue in issues %}
+        <li>
+            {{ issue.description }}
+            {% if issue.assigned_staff %}
+            (Assigned to {{ issue.assigned_staff }})
+            {% endif %}
+            <form method="post" action="/assign_staff">
+                <input type="hidden" name="issue_id" value="{{ issue.id }}">
+                <label for="staff_member">Assign to:</label>
+                <select name="staff_member" id="staff_member">
+                    <option value="">-- Select a staff member --</option>
+                    {% for staff_member in staff %}
+                    <option value="{{ staff_member }}">{{ staff_member }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Assign</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
